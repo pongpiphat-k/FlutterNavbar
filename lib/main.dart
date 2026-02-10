@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-
 void main() => runApp(const NavigationBarApp());
 
 class NavigationBarApp extends StatelessWidget {
@@ -9,7 +7,7 @@ class NavigationBarApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Navigation Bar Demo',
+      title: 'Navigation',
       home: Navigation());
   }
 }
@@ -59,6 +57,7 @@ class _NavigationBar extends State<Navigation> {
             ][currentPageIndex]
              );
               }
+
            return Row(
             children: <Widget>[
               NavigationRail(
