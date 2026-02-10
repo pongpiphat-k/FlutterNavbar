@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Flutter code sample for [NavigationBar].
 
 void main() => runApp(const NavigationBarApp());
 
@@ -9,7 +8,9 @@ class NavigationBarApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: Navigation());
+    return const MaterialApp(
+      title: 'Navigation Bar Demo',
+      home: Navigation());
   }
 }
 
@@ -17,53 +18,96 @@ class Navigation extends StatefulWidget {
   const Navigation({super.key});
 
   @override
-  State<Navigation> createState() => _NavigationState();
+  State<Navigation> createState() => _NavigationBar();
 }
 
-class _NavigationState extends State<Navigation> {
+class _NavigationBar extends State<Navigation> {
   int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth < 600) {
+            return Scaffold(
+              bottomNavigationBar: NavigationBar(
+                onDestinationSelected: (int index) {
+                  setState(() {
             currentPageIndex = index;
-          });
-        },
-        indicatorColor: const Color.fromARGB(255, 234, 192, 66),
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
+           });
+            },
+            selectedIndex: currentPageIndex,
+             destinations: const <Widget>[
+           NavigationDestination(
             icon: Icon(Icons.home_outlined),
             label: 'Home',
-          ),
-          NavigationDestination(
+           ),
+            NavigationDestination(
             icon: Icon( Icons.settings),
             label: 'Settings',
-          ),
-         
-        ],
+           ),
+           
+            ],
+            ),
+            body: <Widget> [
+              Center(
+                child: Text('Home Page'),
+              ),
+              Center(
+                child: Text('Settings Page'),
+              ),
+            ] [currentPageIndex]
+            
+           
+            );
+
+          }
+          
+          return Row(
+            children: <Widget>[
+              NavigationRail(
+                onDestinationSelected: (int index) {
+                  setState(() {
+                    currentPageIndex = index;
+                  });
+                },
+                selectedIndex: currentPageIndex,
+
+                destinations: const <NavigationRailDestination>[
+                  NavigationRailDestination(
+                    icon: Icon(Icons.home_outlined), 
+                    label: Text('Home'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.settings), 
+                    label: Text('Settings'),
+                  ),
+                ],
+              ),
+              const VerticalDivider(thickness: 1, width: 1),
+            Expanded(
+                child: [
+                  Center(
+                    child: Text('Home Page'),
+                  ),
+                  Center(
+                    child: Text('Settings Page'),
+                  ),
+                ][currentPageIndex],
+              ),
+            ]
+            
+          );
+          
+
+        },
       ),
-      body: <Widget>[
-        /// Home page
-        Card(
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(child: Text('Home page', style: theme.textTheme.titleLarge)),
-          ),
-        ),
-        Card(
-          margin: const EdgeInsets.all(8.0),
-          child: SizedBox.expand(
-            child: Center(child: Text('Settings page', style: theme.textTheme.titleLarge)),
-          ),
-        ),
+
       
-       
-      ][currentPageIndex],
     );
+    
+  
+ 
   }
 }
