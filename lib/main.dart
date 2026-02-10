@@ -39,32 +39,27 @@ class _NavigationBar extends State<Navigation> {
             },
             selectedIndex: currentPageIndex,
              destinations: const <Widget>[
-           NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-           ),
-            NavigationDestination(
-            icon: Icon( Icons.settings),
-            label: 'Settings',
-           ),
-           
-            ],
-            ),
-            body: <Widget> [
-              Center(
+              NavigationDestination(
+               icon: Icon(Icons.home_outlined),
+               label: 'Home',
+              ),
+              NavigationDestination(
+               icon: Icon( Icons.settings),
+               label: 'Settings',
+              ),
+               ],
+                ),
+             body: <Widget> [
+               Center(
                 child: Text('Home Page'),
               ),
-              Center(
+               Center(
                 child: Text('Settings Page'),
-              ),
-            ] [currentPageIndex]
-            
-           
-            );
-
-          }
-          
-          return Row(
+               ),
+            ][currentPageIndex]
+             );
+              }
+           return Row(
             children: <Widget>[
               NavigationRail(
                 onDestinationSelected: (int index) {
@@ -73,7 +68,6 @@ class _NavigationBar extends State<Navigation> {
                   });
                 },
                 selectedIndex: currentPageIndex,
-
                 destinations: const <NavigationRailDestination>[
                   NavigationRailDestination(
                     icon: Icon(Icons.home_outlined), 
@@ -97,17 +91,9 @@ class _NavigationBar extends State<Navigation> {
                 ][currentPageIndex],
               ),
             ]
-            
           );
-          
-
         },
-      ),
-
-      
+      ), 
     );
-    
-  
- 
   }
 }
